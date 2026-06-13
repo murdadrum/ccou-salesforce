@@ -2219,40 +2219,19 @@
       color: #F5EDD8;
     }
 
-    /* Hero */
+    /* Hero — always dark regardless of theme */
+    body.light #hero {
+      --cn-dark: #1A0F0A;
+      --cn-cream: #F5EDD8;
+      --cn-tan: #D4B896;
+      --cn-gold-light: #E8B84B;
+      color: #F5EDD8;
+    }
+
     body.light .hero-bg {
-      background: radial-gradient(ellipse at 65% 38%, rgba(139, 26, 26, 0.12) 0%, transparent 58%),
-        radial-gradient(ellipse at 28% 72%, rgba(200, 150, 12, 0.08) 0%, transparent 50%),
-        #F0E6CC;
-    }
-
-    body.light .hero-title {
-      color: #1A0F0A;
-      text-shadow: 0 2px 40px rgba(139, 26, 26, 0.12);
-    }
-
-    body.light .hero-tagline {
-      color: var(--cn-crimson);
-    }
-
-    body.light .hero-sub {
-      color: #4A3520;
-    }
-
-    body.light .hero-eyebrow {
-      color: var(--cn-crimson);
-    }
-
-    body.light .hero-rule {
-      background: var(--cn-crimson);
-    }
-
-    body.light .scroll-cue span {
-      color: rgba(74, 53, 32, 0.5);
-    }
-
-    body.light .scroll-line {
-      background: linear-gradient(to bottom, var(--cn-crimson), transparent);
+      background: radial-gradient(ellipse at 65% 38%, rgba(200, 150, 12, 0.08) 0%, transparent 58%),
+        radial-gradient(ellipse at 28% 72%, rgba(139, 26, 26, 0.08) 0%, transparent 50%),
+        #1A0F0A;
     }
 
     /* Buttons */
