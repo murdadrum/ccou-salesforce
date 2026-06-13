@@ -11,6 +11,10 @@ salesforce/.sfdx/
 salesforce/.localdevserver/
 salesforce/server.key
 
+# SSL certs
+server.crt
+server.key
+
 # Playwright BDD generated specs
 .features-gen/
 
