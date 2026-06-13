@@ -1573,11 +1573,13 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.25rem 1.1rem;
+      padding: 0 1.1rem;
       cursor: pointer;
       background: #1A0F0A;
       border-bottom: 1px solid rgba(200, 150, 12, 0.2);
-      flex-shrink: 0
+      flex-shrink: 0;
+      height: 54px;
+      box-sizing: border-box
     }
 
     .ali-hname {

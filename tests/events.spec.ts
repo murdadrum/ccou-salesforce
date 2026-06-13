@@ -22,7 +22,8 @@ test.describe('Events page', () => {
   test('nav is present with Events link active', async ({ page }) => {
     await page.goto('/events')
     await expect(page.locator('nav').first()).toBeVisible()
-    await expect(page.locator('.nav-links a.nav-active', { hasText: 'Events' })).toBeVisible()
+    // Desktop uses .nav-links; mobile collapses to .nav-flyout — check either
+    await expect(page.locator('.nav-links a.nav-active, .nav-flyout a.nav-active').filter({ hasText: 'Events' }).first()).toBeAttached()
   })
 
   test('subscribe form is present', async ({ page }) => {

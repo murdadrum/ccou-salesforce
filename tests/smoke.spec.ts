@@ -21,7 +21,8 @@ test.describe('Page load & navigation', () => {
 
   test('Request Access button scrolls to form', async ({ page }) => {
     await page.goto('/')
-    await page.getByRole('link', { name: /request access/i }).first().click()
+    // Use the in-page CTA (BuildingSection) — always visible on all viewports
+    await page.locator('a[href="#get-involved"].btn-outline').click()
     await expect(page.locator('#get-involved')).toBeInViewport({ ratio: 0.3 })
   })
 })

@@ -147,7 +147,7 @@ export default function Nav() {
         <div className="nav-flyout-backdrop" onClick={close} aria-hidden="true" />
       )}
 
-      <div className={`nav-flyout${open ? ' nav-flyout-open' : ''}`} aria-hidden={!open}>
+      <div className={`nav-flyout${open ? ' nav-flyout-open' : ''}`} aria-hidden={open ? undefined : true}>
         <nav className="nav-flyout-links">
           {NAV_ITEMS.map(({ hash, label }) => (
             <a
