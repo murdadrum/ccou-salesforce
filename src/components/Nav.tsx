@@ -114,9 +114,18 @@ export default function Nav() {
           <Link href="/events" className={pathname.startsWith('/events') ? 'nav-active' : ''}>
             Events
           </Link>
-          <Link href="/tests" className={pathname.startsWith('/tests') ? 'nav-active' : ''}>
-            Tests
+          <Link href="/volunteers" className={pathname.startsWith('/volunteers') ? 'nav-active' : ''}>
+            Volunteers
           </Link>
+          <Link href="/migration-status" className={pathname.startsWith('/migration-status') ? 'nav-active' : ''}>
+            QA | Migration
+          </Link>
+          <Link href="/qa" className={pathname.startsWith('/qa') ? 'nav-active' : ''}>
+            QA | Jira
+          </Link>
+          <a href="https://github.com/murdadrum/ccou-salesforce" target="_blank" rel="noopener noreferrer">
+            QA | GitHub
+          </a>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <ThemeToggle />
@@ -150,20 +159,21 @@ export default function Nav() {
               {label}
             </a>
           ))}
-          <Link
-            href="/events"
-            className={pathname.startsWith('/events') ? 'nav-active' : ''}
-            onClick={close}
-          >
+          <Link href="/events" className={pathname.startsWith('/events') ? 'nav-active' : ''} onClick={close}>
             Events
           </Link>
-          <Link
-            href="/tests"
-            className={pathname.startsWith('/tests') ? 'nav-active' : ''}
-            onClick={close}
-          >
-            Tests
+          <Link href="/volunteers" className={pathname.startsWith('/volunteers') ? 'nav-active' : ''} onClick={close}>
+            Volunteers
           </Link>
+          <Link href="/migration-status" className={pathname.startsWith('/migration-status') ? 'nav-active' : ''} onClick={close}>
+            QA | Migration
+          </Link>
+          <Link href="/qa" className={pathname.startsWith('/qa') ? 'nav-active' : ''} onClick={close}>
+            QA | Jira
+          </Link>
+          <a href="https://github.com/murdadrum/ccou-salesforce" target="_blank" rel="noopener noreferrer" onClick={close}>
+            QA | GitHub
+          </a>
           <ThemeToggle />
           <a href={navHref('get-involved')} className="btn-nav nav-flyout-cta" onClick={close}>
             Request Access
