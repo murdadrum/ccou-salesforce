@@ -445,7 +445,7 @@
       width: 56px;
       height: 2px;
       background: var(--cn-gold);
-      margin: 1.25rem 0
+      margin: 1.25rem auto
     }
 
     /* ABOUT */
@@ -2584,6 +2584,7 @@
 }
 
 .events-hero .section-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
   margin-bottom: 0;
 }
 
