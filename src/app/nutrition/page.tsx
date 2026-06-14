@@ -1,6 +1,7 @@
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import NutritionClient from './NutritionClient'
+import { getSfToken } from '@/lib/sfAuth'
 import type { FoodCampaign } from '@/lib/sfTypes'
 
 export const revalidate = 300
@@ -12,10 +13,26 @@ export const metadata = {
 
 async function getCampaigns(): Promise<FoodCampaign[]> {
   try {
-    const base = process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'
-    const res = await fetch(`${base}/api/food-distributions`, { next: { revalidate: 300 } })
+    const { token, instanceUrl } = await getSfToken()
+    const soql = `SELECT Id, Name, Status__c, Distribution_Date__c, Location__c, Food_Type__c, Quantity_Available__c, Description__c, Is_Public__c, Contact_Name__c, Contact_Email__c FROM FoodDistribution__c WHERE Is_Public__c = true ORDER BY Distribution_Date__c ASC NULLS LAST LIMIT 50`
+    const res = await fetch(
+      `${instanceUrl}/services/data/v59.0/query?q=${encodeURIComponent(soql)}`,
+      { headers: { Authorization: `Bearer ${token}` }, next: { revalidate: 300 } }
+    )
     if (!res.ok) return []
-    return res.json()
+    const data = await res.json()
+    return (data.records ?? []).map((r: Record<string, unknown>) => ({
+      id: r.Id as string,
+      name: r.Name as string,
+      date: r.Distribution_Date__c as string | null,
+      location: r.Location__c as string | null,
+      foodType: r.Food_Type__c as string | null,
+      quantity: r.Quantity_Available__c as number | null,
+      status: r.Status__c as string | null,
+      organization: null,
+      description: r.Description__c as string | null,
+      isPublic: r.Is_Public__c as boolean,
+    }))
   } catch {
     return []
   }

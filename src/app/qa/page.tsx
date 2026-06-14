@@ -24,12 +24,26 @@ interface JiraIssue { key: string; fields: JiraFields }
 
 // ── Fetch ─────────────────────────────────────────────────────────────────────
 
+const JIRA_BASE = 'https://cco-united.atlassian.net'
+const JIRA_EMAIL = 'josh@joshbarteaux.com'
+
 async function fetchBoard(): Promise<JiraIssue[]> {
   try {
-    const base = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
-    const res = await fetch(`${base}/api/jira-board`, { next: { revalidate: 300 } })
+    const token = process.env.JIRA_API_TOKEN
+    if (!token) return []
+    const auth = Buffer.from(`${JIRA_EMAIL}:${token}`).toString('base64')
+    const url = `${JIRA_BASE}/rest/api/3/search/jql?` + new URLSearchParams({
+      jql: 'project = SCRUM ORDER BY key ASC',
+      maxResults: '200',
+      fields: 'summary,status,issuetype,parent',
+    }).toString()
+    const res = await fetch(url, {
+      headers: { Authorization: `Basic ${auth}`, Accept: 'application/json' },
+      next: { revalidate: 300 },
+    })
     if (!res.ok) return []
-    return res.json()
+    const data = await res.json()
+    return data.issues ?? []
   } catch { return [] }
 }
 
