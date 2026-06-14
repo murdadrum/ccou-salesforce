@@ -22,8 +22,8 @@ export default function HeroCanvas() {
     const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true })
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     renderer.setClearColor(0x000000, 0)
-    renderer.toneMapping = THREE.ACESFilmicToneMapping
-    renderer.toneMappingExposure = 1.1
+    renderer.toneMapping = THREE.LinearToneMapping
+    renderer.toneMappingExposure = 1.0
 
     const scene = new THREE.Scene()
     const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100)
@@ -43,30 +43,24 @@ export default function HeroCanvas() {
     const resize = () => { updateCamera(); positionStar() }
     window.addEventListener('resize', resize)
 
-    // Lighting — boosted for physical material
-    scene.add(new THREE.AmbientLight(0xfff8f0, 0.6))
+    // Lighting — warm, dignified, no iridescence
+    scene.add(new THREE.AmbientLight(0xfff8f0, 0.9))
 
-    const key = new THREE.DirectionalLight(0xfff5e0, 4.0)
+    const key = new THREE.DirectionalLight(0xfff5e0, 2.2)
     key.position.set(6, 8, 5)
     scene.add(key)
 
-    const pl = new THREE.PointLight(0xC8960C, 5.0, 40)
+    const pl = new THREE.PointLight(0xC8960C, 1.8, 40)
     pl.position.set(5, 6, 4)
     scene.add(pl)
 
-    const fl = new THREE.PointLight(0x2C5F7A, 1.2, 60)
+    const fl = new THREE.PointLight(0x2C5F7A, 0.6, 60)
     fl.position.set(-5, -3, 3)
     scene.add(fl)
-
-    // Rim light from behind for iridescent edge catchlight
-    const rim = new THREE.PointLight(0xE8B84B, 2.5, 30)
-    rim.position.set(-3, -4, -3)
-    scene.add(rim)
 
     const grp = new THREE.Group()
     scene.add(grp)
 
-    // Star points with iridescent physical material
     const R = 1.5, r = 0.68, depth = 0.3, n = 7
     const st = (Math.PI * 2) / n, ht = st / 2
 
@@ -85,14 +79,11 @@ export default function HeroCanvas() {
       })
       const mat = new THREE.MeshPhysicalMaterial({
         color: new THREE.Color(CLAN[i]),
-        metalness: 0.85,
-        roughness: 0.12,
-        iridescence: 1.0,
-        iridescenceIOR: 1.72,
-        iridescenceThicknessRange: [80, 500],
-        reflectivity: 0.9,
-        clearcoat: 0.6,
-        clearcoatRoughness: 0.08,
+        metalness: 0.45,
+        roughness: 0.38,
+        reflectivity: 0.5,
+        clearcoat: 0.15,
+        clearcoatRoughness: 0.25,
       })
       grp.add(new THREE.Mesh(geo, mat))
     }
@@ -171,10 +162,6 @@ export default function HeroCanvas() {
         ;(pts.material as THREE.PointsMaterial).opacity =
           0.65 + Math.sin(t * 0.7 + i * 1.1) * 0.13
       })
-
-      // Rim light slowly orbits for dynamic iridescent catchlight
-      rim.position.x = Math.sin(t * 0.4) * 5
-      rim.position.y = Math.cos(t * 0.3) * 4
 
       renderer.render(scene, camera)
     }
