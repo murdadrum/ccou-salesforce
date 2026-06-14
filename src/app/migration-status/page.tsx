@@ -129,12 +129,12 @@ export default async function MigrationStatusPage() {
   return (
     <>
       <Nav />
-      <main style={{ minHeight: '100vh', background: 'var(--cn-dark)' }}>
+      <main style={{ minHeight: '100vh', background: 'var(--cn-dark)', paddingTop: 80 }}>
 
         {/* Hero */}
         <div style={{
           textAlign: 'center',
-          padding: '5rem 1.5rem 3rem',
+          padding: '4rem 1.5rem 3rem',
           borderBottom: '1px solid rgba(200,150,12,0.15)',
         }}>
           <span style={{
