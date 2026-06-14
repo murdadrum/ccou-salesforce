@@ -199,7 +199,7 @@ export default async function QAPage() {
               transition: 'opacity 0.2s',
             }}
           >
-            Launch Jira Board ↗
+            Launch Jira Board
           </a>
         </div>
 
