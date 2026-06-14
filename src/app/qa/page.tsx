@@ -98,7 +98,7 @@ function polarToXY(cx: number, cy: number, r: number, angleDeg: number) {
   return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) }
 }
 
-function donutSlice(cx: number, cy: number, r: number, startDeg: number, endDeg: number, stroke: number) {
+function donutSlice(cx: number, cy: number, r: number, startDeg: number, endDeg: number) {
   const start = polarToXY(cx, cy, r, startDeg)
   const end   = polarToXY(cx, cy, r, endDeg)
   const large = endDeg - startDeg > 180 ? 1 : 0
@@ -219,7 +219,7 @@ export default async function QAPage() {
                   {/* Segments */}
                   {slices.map((s, i) => s.n > 0 && (
                     <path key={i}
-                      d={donutSlice(doneCx, doneCy, doneR, s.start, s.end, doneStroke)}
+                      d={donutSlice(doneCx, doneCy, doneR, s.start, s.end)}
                       fill="none" stroke={s.color} strokeWidth={doneStroke} strokeLinecap="butt" />
                   ))}
                   {/* Center label */}
