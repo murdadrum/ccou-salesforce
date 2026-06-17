@@ -58,6 +58,21 @@ export interface MondayGrantProvider {
   email: string | null
 }
 
+export interface SharedResource {
+  id: string
+  name: string
+  resourceType: string | null
+  category: string | null
+  cco: string | null
+  availability: string | null
+  cost: string | null
+  capacity: string | null
+  indoorOutdoor: string | null
+  description: string | null
+  contact: string | null
+  group: string
+}
+
 export interface MondayVolunteer {
   id: string
   name: string
